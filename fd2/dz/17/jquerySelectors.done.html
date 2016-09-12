@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> </title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+</head>
+
+<body>
+    <div id="d01" class="myDiv pin drop"></div>
+    <div id="d02" class="myDiv drop red"></div>
+    <div id="d03" class="myDiv red"></div>
+    <div id="d04" class="myDiv pin"></div>
+    <div id="d05" class="myDiv red"></div>
+    <div id="d06" class="myDiv drop"></div>
+    <div id="d07" class="myDiv pin drop"></div>
+    <div id="d08" class="myDiv"></div>
+    <div id="d09" class="myDiv"></div>
+    <div id="d10" class="myDiv drop"></div>
+    <div id="d11" class="myDiv"></div>
+    <div id="d12" class="myDiv red"></div>
+    <div id="d13" class="myDiv pin"></div>
+    <div id="d14" class="myDiv"></div>
+    <div id="d15" class="myDiv pin"></div>
+    <div id="d16" class="myDiv red"></div>
+    <div id="d17" class="myDiv"></div>
+
+    <input type="button" value="Добавить внутрь div значение их id" id="addId">
+    <input type="button" value="Назначить всем div высоту и ширину равную 40px" id="addGabarites">
+    <input type="button" value="Сделать шахматную доску" id="addShah">
+    <input type="button" value="Все черные div разместить по правому краю, светлые - по левому" id="addSegregation">
+    <input type="button" value="Все div с классом pin, но не drop - сделать position: fixed" id="addFixed">
+    <input type="button" value="Все четные div, но не red должны стать желтыми" id="addYellow">
+    <input type="button" value="Все div с классом drop пусть плавно исчезнут" id="doDrop">
+    <input type="button" value="Удалить из DOM все нечетные div" id="dropEven">
+    <input type="button" value="Все div обернуть в <a>" id="wrapA">
+    <input type="button" value="Все div заменить на <span> с теми же id и классами" id="divToSpan">
+    <script>
+        $('#addId').on('click', function() {
+            $('div').each(function() {
+                $(this).append($(this).attr('id'));
+            })
+        });
+        
+        $('#addGabarites').on('click', function() {
+            $('div').each(function() {
+                $(this).css("width", '40px');
+                $(this).css("height", '40px');
+            });
+        });
+        
+        $('#addShah').on('click', function() {
+            var $collection = $('div');
+            $collection.each(function() {
+                $(this).css("width", '40px');
+                $(this).css("height", '40px');
+                $(this).css("float", 'left');
+                // можно было бы и через проверку id, но лучше так - быстрее
+                if(arguments[0]!=16) {
+                    $(this).css("border", '1px solid gray');
+                }
+            });
+            $collection.filter(':nth-child(1),:nth-child(3),:nth-child(6),:nth-child(8),:nth-child(9),:nth-child(11),:nth-child(14),:nth-child(16)').each(function() {
+                // через класс потом удобнее будет выбрать нужное
+                // $(this).css("background-color", '#555');
+                $(this).addClass("black");
+            });
+            $collection.filter(':nth-child(4n+1)').each(function() {
+                $(this).css("clear", 'left');
+            });
+        });
+        
+        $('#addSegregation').on('click', function() {
+            $('div.black').each(function() {
+                $(this).css("float", 'left');
+                $(this).css("clear", 'none');
+            });
+            $('div:not(.black)').each(function() {
+                $(this).css("float", 'right');
+                $(this).css("clear", 'none');
+            });
+        });
+        
+        $('#addFixed').on('click', function() {
+            $('div.pin:not(.drop)').each(function() {
+                $(this).css("position", 'fixed');
+            });
+        });
+        
+        $('#addYellow').on('click', function() {
+            $('div:odd:not(.red)').each(function() {
+                $(this).css("background-color", 'yellow');
+            });
+        });
+        
+        $('#doDrop').on('click', function() {
+            $('div.drop').each(function() {
+                // с помощью css
+                // $(this).css("opacity", 0);
+                // с помощью jquery
+                $(this).hide("2000");
+            });
+        });
+        
+        $('#dropEven').on('click', function() {
+            $('div:even').each(function() {
+                $(this).empty();
+            });
+        });
+        
+        $('#wrapA').on('click', function() {
+            $('div').each(function() {
+                $(this).wrap('<a href="#"></a>');
+            });
+        });
+        
+        $('#wrapA').on('click', function() {
+            $('div').each(function() {
+                $(this).wrap('<a href="#"></a>');
+            });
+        });
+        
+        $('#divToSpan').on('click', function() {
+            $('div').each(function() {
+                $(this).replaceWith(function(){
+                    var id=$(this).attr('id');
+                    var cls=$(this).attr('class');
+                    var text=$(this).text();
+                    return '<span id="'+id+'" class="'+cls+'">'+text+'</span>';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

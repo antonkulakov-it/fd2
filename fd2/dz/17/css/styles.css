@@ -1,0 +1,6 @@
+.black {
+    background-color: #555;
+}
+.drop {
+    transition: opacity 2s ease;
+}
