@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Классический пример одностороннего data-binding - по событию onKeyup меняем значение свойства</h1>
+        <input placeholder="Введите имя" id="first_name" value="">
+        <input placeholder="Введите фамилию" id="last_name" value="">
+        <input type="button" id="btn" value="Показать значения">
+        <script>
+            var user = {};
+            var fName=document.getElementById("first_name");
+            var lName=document.getElementById("last_name");
+            var btn=document.getElementById("btn");
+            fName.addEventListener("keyup", function(){
+                user.first_name=this.value;
+            });
+            
+            lName.addEventListener("keyup", function(){
+                user.last_name=this.value;
+            });
+            
+            btn.addEventListener("click", function(){
+                alert(""+ user.first_name + user.last_name);
+            })
+            
+            
+        </script>
+    </body>
+</html>

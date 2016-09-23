@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Памятка, как создавать проекты</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Создание проекта</h1>
+        <ol>
+            <li><a href="#req">Минимальные требования</a></li>
+            <li><a href="#initProject">Инициализируем проект</a></li>
+            <li><a href="#setupBower">Устанавливаем bower</a></li>
+            <li><a href="#setupGulp">Устанавливаем gulp</a></li>
+            <li><a href="#setupGit">Инициализируем git</a></li>
+            <li><a href="#setupBranches">Работка с ветками разработки</a></li>
+            <li><a href="#links">Полезные ссылки</a></li>
+        </ol>
+        
+        <h1 id="req">Минимальные требования</h1>
+        <p>Должны быть установлены: node.js</p>
+        <p>Должны быть установлены: bower, gulp</p>
+        
+        <h1 id="initProject">Инициализируем проект</h1>
+        <p>Создаем папку, в которой будет создан проект (#$ mkdir -p /path/to/dir/)</p>
+        <p>Заходим в нее (#$ cd /path/to/dir)</p>
+        <p>Инициализируем серверную часть (#$ npm init), отвечаем на вопросы.</p>
+        
+        <h1 id="setupBower">Устанавливаем bower</h1>
+        <p>Проверяем, нужна ли установка bower (#$ bower). Если не выдало сообщений об ошибках, установка не нужна</p>
+        <p>Если нужно, устанавливаем bower. Глобально: (#$ npm install -g bower). Локально:  (#$ npm install bower).</p>
+        <p>Инициализируем frontend часть (#$ bower init), отвечаем на вопросы.</p>
+        <p>Если нужно, устанавливаем пакеты (#$ bower install [pack_name])</p>
+        
+        <h1 id="setupGulp">Устанавливаем gulp</h1>
+        <p>Проверяем, нужна ли установка gulp (#$ gulp). Если выдало сообщение что не найден файл gulpfile.js, или нет ошибок - установка не нужна.</p>
+        <p>Создаем gulpfile.js (#$ touch gulpfile.js)</p>
+        <p>Создаем таски в gulpfile.js</p>
+        <p>Если необходимо установить какие-то плагины для gulp - устанавливаем npm install [plugin_name]</p>
+        
+        <h1 id="setupGit">Инициализируем git</h1>
+        <p>Инициализируем git (локальный репозиторй) в нашей папке (#$ git init)</p>
+        <p>Создаем файл .gitignore, туда заносим, как правило: node_modules, bower_components, test, tests, dist</p>
+        <p>Добавляем удаленный репозиторий (#$ git remote add [local_name] [addres_of_remote_repo])</p>
+        <p>Посмотреть список удаленных репозиториев (#$ git remote -v])</p>
+        <p>Делаем первый коммит (#$ git add [some_file] && git commit)</p>
+        <p>Делаем отправку в удаленный репозиторий (#$ git push [addres_of_remote_repo] [branch])</p>
+        <p>Забираем из удаленного репозитория (#$ git pull [addres_of_remote_repo] [branch])</p>
+        
+        <h1 id="setupBranches">Работка с ветками разработки</h1>
+        <p>Посмотреть список веток (#$ git branch)</p>
+        <p>Создать новую ветку (#$ git branch [branch_name])</p>
+        <p>Переключиться на ветку (#$ git checkout [branch_name])</p>
+        <p>Делаем отправку ветки в удаленный репозиторий (#$ git push [addres_of_remote_repo] [branch_name])</p>
+        <p>Забираем ветку из удаленного репозитория (#$ git pull [addres_of_remote_repo] [branch_name])</p>
+        <p>Слияние веток можно производить только после того, как сделали коммит.</p>
+        <p>Слияние ветки [some_dev] с веткой [some_branch]: (#$ git checkout [some_branch] && git merge [some_dev])</p>
+        <p>В разрешении конфликтов слияний вам поможет google/yandex :)</p>
+        
+        <h1 id="links">Ссылки</h1>
+        <p><a href="http://webdesign-master.ru/blog/tools/2016-03-09-gulp-beginners.html">gulp для начинающих</a></p>
+        <p><a href="http://nano.sapegin.ru/all/bower">bower</a></p>
+        <p><a href="http://eax.me/git-commands/">Шпаргалка git</a></p>
+    </body>
+</html>

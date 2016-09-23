@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> </title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <h1>Теперь то же самое, но с существующим объектом</h1>
+    <input placeholder="Введите имя" id="first_name" value="">
+    <input placeholder="Введите фамилию" id="last_name" value="">
+    <input type="button" id="btn" value="Показать значения">
+    <input type="button" id="btn1" value="Изменить значения объекта на &quot;Иван Иванов&quot;">
+    <input type="button" id="btn2" value="Изменить только значения input'ов на &quot;Блин Блинский&quot;">
+    <script>
+        var fName = document.getElementById("first_name");
+        var lName = document.getElementById("last_name");
+        var btn = document.getElementById("btn");
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+
+
+        /*
+        // а можно обойтить и без замыканий
+        // делаем биндинг непосредственно на нужный нам элемент
+        // и тут еще один плюс - не надо отслеживать нажатие клавиш, чтобы передать значения
+        // если вдруг, мы изменим значения input'ов программно - у нас обновятся наши значения и в объекте
+        */
+
+        var user = {
+            first_name: "",
+            last_name: "",
+            debug: function() {
+                return {
+                    first_name: fName.value,
+                    last_name: lName.value
+                }
+            }
+        };
+
+
+        Object.defineProperty(user, "first_name", {
+            set: function(newVal) {
+                fName.value = newVal;
+            },
+            get:function() {
+                return fName.value;
+            }
+        });
+        
+        Object.defineProperty(user, "last_name", {
+            set: function(newVal) {
+                lName.value = newVal;
+            },
+            get: function() {
+                return lName.value;
+            }
+        });
+
+        fName.addEventListener("keyup", function() {
+            user.first_name = this.value;
+        });
+
+        lName.addEventListener("keyup", function() {
+            user.last_name = this.value;
+        });
+
+        btn.addEventListener("click", function() {
+            alert("" + user.first_name + user.last_name);
+            console.log(user.debug());
+        });
+        btn1.addEventListener("click", function() {
+            user.first_name = "Иван";
+            user.last_name = "Иванов";
+            console.log(user.debug());
+        });
+
+        btn2.addEventListener("click", function() {
+            fName.value = "Блин";
+            lName.value = "Блинский";
+            console.log(user.debug());
+        });
+    </script>
+</body>
+
+</html>

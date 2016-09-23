@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> </title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <h1>Вроде работает, но хотелось бы нормально назначать свойства.</h1>
+    <input placeholder="Введите имя" id="first_name" value="">
+    <input placeholder="Введите фамилию" id="last_name" value="">
+    <input type="button" id="btn" value="Показать значения">
+    <input type="button" id="btn1" value="Изменить значения объекта на &quot;Иван Иванов&quot;">
+    <input type="button" id="btn2" value="Изменить только значения input'ов на &quot;Блин Блинский&quot;">
+    <script>
+        var fName = document.getElementById("first_name");
+        var lName = document.getElementById("last_name");
+        var btn = document.getElementById("btn");
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+
+        /*
+        // так не будет работать, т.к. нельзя в сеттере указывать свойство, в которое пишем
+        // что же делать? 
+        var user = {
+            first_name: "",
+            last_name: "",
+            set first_name(newVal) {
+                this.first_name = newVal;
+                fName.value = this.first_name;
+            },
+            get first_name() {
+                return first_name;
+            },
+            set last_name(newVal) {
+                this.last_name = newVal;
+                lName.value = this.last_name;
+            },
+            get last_name() {
+                return last_name;
+            }
+        }
+        */
+
+        /*
+        // как всегда нас спасут замыкания
+        */
+
+        var user = (function() {
+            var first_name;
+            var last_name;
+            return {
+                set first_name(newVal) {
+                    first_name = newVal;
+                    fName.value = first_name;
+                },
+                get first_name() {
+                    return first_name;
+                },
+                set last_name(newVal) {
+                    last_name = newVal;
+                    lName.value = last_name;
+                },
+                get last_name() {
+                    return last_name;
+                },
+                debug: function() {
+                    return {
+                        first_name: first_name,
+                        last_name: last_name
+                    }
+                }
+            }
+        })();
+
+        /*
+        // а можно обойтить и без замыканий
+        // делаем биндинг непосредственно на нужный нам элемент
+        // и тут еще один плюс - не надо отслеживать нажатие клавиш, чтобы передать значения
+        // если вдруг, мы изменим значения input'ов программно - у нас обновятся наши значения и в объекте
+        */
+
+        // var user = {
+        //     set first_name(newVal) {
+        //         fName.value = newVal;
+        //     },
+        //     get first_name() {
+        //         return fName.value;
+        //     },
+        //     set last_name(newVal) {
+        //         lName.value = newVal;
+        //     },
+        //     get last_name() {
+        //         return lName.value;
+        //     },
+        //     debug: function() {
+        //         return {
+        //             first_name: fName.value,
+        //             last_name: lName.value
+        //         }
+        //     }
+        // };
+
+        fName.addEventListener("keyup", function() {
+            user.first_name = this.value;
+        });
+
+        lName.addEventListener("keyup", function() {
+            user.last_name = this.value;
+        });
+
+        btn.addEventListener("click", function() {
+            alert("" + user.first_name + user.last_name);
+            console.log(user.debug());
+        });
+        btn1.addEventListener("click", function() {
+            user.first_name = "Иван";
+            user.last_name = "Иванов";
+            console.log(user.debug());
+        });
+
+        btn2.addEventListener("click", function() {
+            fName.value = "Блин";
+            lName.value = "Блинский";
+            console.log(user.debug());
+        });
+    </script>
+</body>
+
+</html>

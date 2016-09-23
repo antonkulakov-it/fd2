@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> </title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <h1>А как же сделать обратный data-binding? Например, использовать функции для установки и чтения данных</h1>
+    <input placeholder="Введите имя" id="first_name" value="">
+    <input placeholder="Введите фамилию" id="last_name" value="">
+    <input type="button" id="btn" value="Показать значения">
+    <input type="button" id="btn1" value="Изменить значения на &quot;Иван Иванов&quot;">
+    <script>
+        var fName = document.getElementById("first_name");
+        var lName = document.getElementById("last_name");
+        var btn = document.getElementById("btn");
+        var btn1 = document.getElementById("btn1");
+
+        var user = (function() {
+            var data = {
+                first_name: "",
+                last_name: ""
+            };
+            return {
+                getFirstName: function() {
+                    return data.first_name;
+                },
+                setFirstName: function(newVal) {
+                    data.first_name = newVal;
+                    fName.value = data.first_name;
+                },
+                getLastName: function() {
+                    return data.last_name;
+                },
+                setLastName: function(newVal) {
+                    data.last_name = newVal;
+                    lName.value = data.last_name;
+                },
+                debug: function() {
+                    return data;
+                }
+            }
+        })();
+
+
+        fName.addEventListener("keyup", function() {
+            user.setFirstName(this.value);
+        });
+
+        lName.addEventListener("keyup", function() {
+            user.setLastName(this.value);
+        });
+
+        btn.addEventListener("click", function() {
+            alert(""+ user.getFirstName() + user.getLastName());
+        });
+        btn1.addEventListener("click", function() {
+            user.setFirstName("Иван");
+            user.setLastName("Иванов");
+            console.log(user.debug());
+        });
+    </script>
+</body>
+
+</html>
